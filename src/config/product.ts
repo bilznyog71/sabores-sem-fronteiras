@@ -38,10 +38,10 @@ export const PRODUCT_CONFIG: ProductConfig = {
     "Acesso digital",
   ],
   // Preço e Condições Comerciais (Edite livremente)
-  price: "R$ 47,00",
-  previousPrice: "R$ 97,00",
+  price: "R$ 297,90",
+  previousPrice: "R$ 497,00",
   hasDiscount: true, // Alterne para false se não houver preço anterior promocional
-  checkoutUrl: "https://pay.hotmart.com/exemplo", // Insira a URL real do seu checkout
+  checkoutUrl: "https://pay.disruptybr.app/c/Zqa?of=fxr", // URL oficial do checkout Disrupty
   productAccessUrl: "https://mesamundi.online/acesso", // URL segura de acesso aos membros/conteúdo
   downloadUrl: PRODUCT_DOWNLOAD_URL,
   supportUrl: SUPPORT_URL, // URL ou link direto do suporte
