@@ -1,5 +1,5 @@
 import React from 'react';
-import { DELIVERABLES } from '../config/product';
+import { DELIVERABLES, PRODUCT_CONFIG } from '../config/product';
 import { Check, BookOpen, Layers, Sparkles } from 'lucide-react';
 
 export const WhatYouGetSection: React.FC = () => {
@@ -31,10 +31,10 @@ export const WhatYouGetSection: React.FC = () => {
                   {/* Miolo Visual da Capa */}
                   <div className="my-6 text-center">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-wine-700 text-gold-300 flex items-center justify-center font-editorial font-bold text-2xl shadow-md border-2 border-gold-400/40">
-                      SF
+                      MM
                     </div>
                     <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-charcoal-900 leading-tight mb-2">
-                      Sabores sem Fronteiras
+                      {PRODUCT_CONFIG.name}
                     </h3>
                     <p className="text-xs text-charcoal-600 font-sans-body max-w-xs mx-auto">
                       Atlas culinário doméstico com 10 grandes tradições gastronômicas do mundo

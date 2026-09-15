@@ -34,10 +34,10 @@ export const Header: React.FC = () => {
         {/* Logo Textual */}
         <a href="#inicio" className="group flex flex-col">
           <span className="font-editorial text-xl sm:text-2xl font-bold tracking-tight text-charcoal-900 group-hover:text-wine-700 transition-colors">
-            Sabores sem Fronteiras
+            Mesa<span className="text-wine-700">Mundi</span>
           </span>
           <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-wine-700 font-semibold">
-            Coleção Gastronômica
+            Sabores do Mundo
           </span>
         </a>
 

@@ -34,7 +34,7 @@ export const ProductValueReinforcement: React.FC = () => {
                 <div className="rounded-lg overflow-hidden h-24 my-2.5 shadow-inner">
                   <img
                     src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80"
-                    alt="Sabores sem Fronteiras"
+                    alt={PRODUCT_CONFIG.name}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />

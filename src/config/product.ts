@@ -22,9 +22,9 @@ export interface ProductConfig {
 }
 
 export const PRODUCT_CONFIG: ProductConfig = {
-  name: "Sabores sem Fronteiras",
+  name: "MesaMundi",
   subtitle: "120 receitas para viajar pelo mundo sem sair da cozinha.",
-  badge: "UM PASSAPORTE PARA SABORES DO MUNDO",
+  badge: "SABORES DO MUNDO NA SUA MESA",
   headline: "120 receitas para viajar pelo mundo sem sair da sua cozinha.",
   subheadline: "Descubra pratos marcantes de 10 tradições culinárias e transforme refeições comuns em experiências que atravessam países, culturas e sabores.",
   benefitsSummary: [
@@ -38,10 +38,10 @@ export const PRODUCT_CONFIG: ProductConfig = {
   previousPrice: "R$ 97,00",
   hasDiscount: true, // Alterne para false se não houver preço anterior promocional
   checkoutUrl: "https://pay.hotmart.com/exemplo", // Insira a URL real do seu checkout
-  productAccessUrl: "https://membros.saboressemfronteiras.com/acesso", // URL segura de acesso aos membros/conteúdo
-  supportUrl: "mailto:suporte@saboressemfronteiras.com", // URL ou link direto do suporte
+  productAccessUrl: "https://mesamundi.online/acesso", // URL segura de acesso aos membros/conteúdo
+  supportUrl: "mailto:suporte@mesamundi.online", // URL ou link direto do suporte
   offerDisclaimer: "Acesso digital imediato • Consulte as condições da oferta",
-  supportEmail: "suporte@saboressemfronteiras.com",
+  supportEmail: "suporte@mesamundi.online",
   copyrightYear: new Date().getFullYear(),
 };
 
@@ -539,7 +539,7 @@ export const POST_PURCHASE_FAQ: FaqItem[] = [
   },
   {
     question: "Não encontrei o e-mail. O que faço?",
-    answer: "Verifique primeiro a sua caixa de Spam, Lixo Eletrônico ou a aba Promoções buscando pelo remetente da plataforma de pagamento ou por 'Sabores sem Fronteiras'. Se ainda não localizar, entre em contato direto com o nosso suporte informando o e-mail usado na compra.",
+    answer: "Verifique primeiro a sua caixa de Spam, Lixo Eletrônico ou a aba Promoções buscando pelo remetente da plataforma de pagamento ou por 'MesaMundi'. Se ainda não localizar, entre em contato direto com o nosso suporte informando o e-mail usado na compra.",
   },
   {
     question: "Meu pagamento ainda está processando. É normal?",

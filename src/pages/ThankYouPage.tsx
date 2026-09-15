@@ -46,7 +46,7 @@ export const ThankYouPage: React.FC = () => {
     const rawAmount = searchParams.get('amount') || searchParams.get('valor');
 
     // Em ambiente de teste/demonstração quando nenhum parâmetro vem do checkout:
-    const fallbackId = rawOrderId || (currentStatus !== 'unknown' ? '#SF-89210' : undefined);
+    const fallbackId = rawOrderId || (currentStatus !== 'unknown' ? '#MM-89210' : undefined);
     const fallbackEmail = rawEmail || (currentStatus !== 'unknown' ? 'cliente.exemplo@gmail.com' : undefined);
     const fallbackAmount = rawAmount || (currentStatus === 'approved' ? PRODUCT_CONFIG.price : undefined);
 

@@ -10,7 +10,7 @@ export const ThankYouHeader: React.FC = () => {
         {/* Logo Textual Elegante */}
         <Link to="/" className="group flex flex-col text-left">
           <span className="font-editorial text-xl sm:text-2xl font-bold tracking-tight text-charcoal-900 group-hover:text-wine-700 transition-colors">
-            {PRODUCT_CONFIG.name}
+            Mesa<span className="text-wine-700">Mundi</span>
           </span>
           <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-wine-700 font-semibold">
             Confirmação de Pedido

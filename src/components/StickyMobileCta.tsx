@@ -43,7 +43,7 @@ export const StickyMobileCta: React.FC = () => {
         <div className="flex items-center gap-2 text-left pl-1">
           <BookOpen className="w-4 h-4 text-wine-700 flex-shrink-0" />
           <div className="text-xs">
-            <div className="font-bold text-charcoal-900 leading-tight">Sabores sem Fronteiras</div>
+            <div className="font-bold text-charcoal-900 leading-tight">{PRODUCT_CONFIG.name}</div>
             <div className="text-wine-700 font-semibold">{PRODUCT_CONFIG.price} • 120 receitas</div>
           </div>
         </div>

@@ -50,7 +50,7 @@ export const OfferSection: React.FC = () => {
                 <div className="rounded-xl overflow-hidden h-36 mb-4 shadow-sm border border-cream-200">
                   <img
                     src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80"
-                    alt="Coleção Sabores sem Fronteiras"
+                    alt={`Coleção ${PRODUCT_CONFIG.name}`}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />

@@ -85,7 +85,7 @@ export const HeroSection: React.FC = () => {
                   <div className="bg-charcoal-800 px-4 py-2 flex items-center justify-between text-cream-200 text-xs">
                     <div className="flex items-center gap-2">
                       <BookOpen className="w-3.5 h-3.5 text-gold-400" />
-                      <span className="font-serif tracking-wide">Sabores sem Fronteiras</span>
+                      <span className="font-serif tracking-wide">{PRODUCT_CONFIG.name}</span>
                     </div>
                     <span className="text-charcoal-400 text-[10px] uppercase tracking-widest font-mono">Edição Digital</span>
                   </div>
