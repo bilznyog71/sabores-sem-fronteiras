@@ -17,9 +17,13 @@ export interface ProductConfig {
   productAccessUrl: string;
   supportUrl: string;
   offerDisclaimer: string;
+  downloadUrl: string;
   supportEmail: string;
   copyrightYear: number;
 }
+
+export const PRODUCT_DOWNLOAD_URL = "/api/download";
+export const SUPPORT_URL = "mailto:suporte@mesamundi.online";
 
 export const PRODUCT_CONFIG: ProductConfig = {
   name: "MesaMundi",
@@ -39,7 +43,8 @@ export const PRODUCT_CONFIG: ProductConfig = {
   hasDiscount: true, // Alterne para false se não houver preço anterior promocional
   checkoutUrl: "https://pay.hotmart.com/exemplo", // Insira a URL real do seu checkout
   productAccessUrl: "https://mesamundi.online/acesso", // URL segura de acesso aos membros/conteúdo
-  supportUrl: "mailto:suporte@mesamundi.online", // URL ou link direto do suporte
+  downloadUrl: PRODUCT_DOWNLOAD_URL,
+  supportUrl: SUPPORT_URL, // URL ou link direto do suporte
   offerDisclaimer: "Acesso digital imediato • Consulte as condições da oferta",
   supportEmail: "suporte@mesamundi.online",
   copyrightYear: new Date().getFullYear(),
@@ -555,6 +560,29 @@ export const POST_PURCHASE_FAQ: FaqItem[] = [
   },
 ];
 
+export const THANK_YOU_FAQ: FaqItem[] = [
+  {
+    question: "Como faço o download?",
+    answer: "Basta clicar no botão 'BAIXAR MEU EBOOK' no topo desta página. O download do arquivo digital em formato PDF começará imediatamente.",
+  },
+  {
+    question: "Posso baixar pelo celular?",
+    answer: "Com certeza. O material está em formato PDF de alta resolução, perfeitamente adaptado para leitura em smartphones, tablets, computadores ou leitores de PDF de sua preferência.",
+  },
+  {
+    question: "Posso salvar o PDF no computador?",
+    answer: "Sim. Você pode baixar diretamente no computador e guardá-lo na pasta que preferir, ou enviar para seu serviço de nuvem (Google Drive, iCloud, Dropbox) para acessar sempre que quiser.",
+  },
+  {
+    question: "O download não iniciou. O que faço?",
+    answer: "Clique no botão 'TENTAR NOVAMENTE'. Se o navegador bloquear o início da transferência, verifique se a notificação de download foi bloqueada ou tente abrir a página em outra aba.",
+  },
+  {
+    question: "Perdi o arquivo. Como acesso novamente?",
+    answer: "O link de acesso seguro também foi enviado para o seu e-mail de compra. Você pode acessar esta mesma página ou o e-mail sempre que precisar baixar uma nova cópia.",
+  },
+];
+
 /**
  * CHIPS DE PAÍSES PARA DICA DE PRIMEIRO ACESSO
  */
@@ -586,6 +614,10 @@ export type AnalyticsEvent =
   | 'purchase_confirmed'
   | 'purchase_pending'
   | 'access_product_click'
+  | 'thank_you_page_view'
+  | 'download_click'
+  | 'download_success'
+  | 'download_error'
   | 'support_click';
 
 export const trackAnalyticsEvent = (event: AnalyticsEvent, payload?: Record<string, unknown>) => {

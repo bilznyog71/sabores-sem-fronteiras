@@ -1,227 +1,158 @@
 import React, { useState } from 'react';
-import type { OrderStatus } from '../../config/product';
-import { PRODUCT_CONFIG, trackAnalyticsEvent } from '../../config/product';
-import { Check, Clock, AlertTriangle, HelpCircle, ArrowRight, RefreshCw, ExternalLink } from 'lucide-react';
+import { Download, Check, Loader2, AlertCircle, RefreshCw, FileText } from 'lucide-react';
+import { SUPPORT_URL, trackAnalyticsEvent } from '../../config/product';
+import { executeSecureDownload } from '../../services/downloadService';
 
 interface ThankYouHeroProps {
-  status: OrderStatus;
   orderId?: string;
-  onRefreshStatus?: () => void;
+  token?: string;
+  transactionId?: string;
 }
 
 export const ThankYouHero: React.FC<ThankYouHeroProps> = ({
-  status,
   orderId,
-  onRefreshStatus,
+  token,
+  transactionId,
 }) => {
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [downloadState, setDownloadState] = useState<'idle' | 'preparing' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleRefresh = () => {
-    setIsRefreshing(true);
-    if (onRefreshStatus) {
-      onRefreshStatus();
+  const startDownload = async (simulateError: boolean = false) => {
+    setDownloadState('preparing');
+    setErrorMessage(null);
+
+    try {
+      await executeSecureDownload({
+        orderId,
+        token,
+        transactionId,
+        simulateError,
+      });
+      setDownloadState('success');
+      // Volta para idle após 3s para permitir novo clique se desejar
+      setTimeout(() => {
+        setDownloadState('idle');
+      }, 3000);
+    } catch (err) {
+      console.warn('[Hero Download] Erro no download:', err);
+      setDownloadState('error');
+      setErrorMessage('Não conseguimos iniciar o download.');
     }
-    setTimeout(() => {
-      setIsRefreshing(false);
-    }, 900);
-  };
-
-  const handleAccessClick = () => {
-    trackAnalyticsEvent('access_product_click', {
-      orderId,
-      location: 'hero_thank_you',
-    });
-  };
-
-  const handleSupportClick = () => {
-    trackAnalyticsEvent('support_click', {
-      location: 'hero_failed_or_unknown',
-      orderId,
-    });
   };
 
   return (
-    <section className="pt-8 pb-12 sm:pt-12 sm:pb-16 text-center">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+    <section className="pt-5 pb-8 sm:pt-10 sm:pb-14 text-center">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6">
         
-        {/* ÍCONE DE STATUS CIRCULAR ELEGANTE (Scale 0.95 -> 1 sutil) */}
-        <div className="flex justify-center mb-5 animate-fadeIn">
-          {status === 'approved' && (
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-olive-100/90 text-olive-700 border-2 border-olive-500/30 flex items-center justify-center shadow-md">
-              <Check className="w-8 h-8 sm:w-10 sm:h-10 stroke-[2.5]" />
-            </div>
-          )}
+        {/* Ícone de Check com Animação Discreta (opacity 0 -> 1, scale .95 -> 1) */}
+        <div className="flex justify-center mb-3 sm:mb-4">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-olive-100/90 text-olive-700 border border-olive-500/30 flex items-center justify-center shadow-xs transition-all duration-700 ease-out transform scale-100 hover:scale-105">
+            <Check className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.6]" />
+          </div>
+        </div>
 
-          {status === 'pending' && (
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gold-100/90 text-gold-600 border-2 border-gold-400/40 flex items-center justify-center shadow-md">
-              <Clock className="w-8 h-8 sm:w-10 sm:h-10 stroke-[2.2]" />
-            </div>
-          )}
+        {/* Badge "COMPRA CONCLUÍDA" */}
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-olive-50 text-olive-800 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-2.5 sm:mb-3 border border-olive-200/80">
+          <span className="w-1.5 h-1.5 rounded-full bg-olive-600"></span>
+          <span>COMPRA CONCLUÍDA</span>
+        </div>
 
-          {status === 'failed' && (
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-100/90 text-wine-700 border-2 border-wine-500/30 flex items-center justify-center shadow-md">
-              <AlertTriangle className="w-8 h-8 sm:w-10 sm:h-10 stroke-[2.2]" />
-            </div>
-          )}
+        {/* Título Principal */}
+        <h1 className="font-editorial text-2xl sm:text-4xl lg:text-5xl font-bold text-charcoal-900 tracking-tight leading-tight mb-1.5 sm:mb-2">
+          Deu tudo certo.
+        </h1>
 
-          {status === 'unknown' && (
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cream-200/90 text-charcoal-600 border-2 border-cream-300 flex items-center justify-center shadow-md">
-              <HelpCircle className="w-8 h-8 sm:w-10 sm:h-10 stroke-[2.2]" />
+        {/* Subtítulo */}
+        <p className="text-sm sm:text-base lg:text-lg font-medium text-wine-800 mb-2 sm:mb-3">
+          Seu acesso ao MesaMundi está liberado.
+        </p>
+
+        {/* Texto Explicativo */}
+        <p className="text-xs sm:text-sm text-charcoal-600 max-w-lg mx-auto leading-relaxed mb-5 sm:mb-6 font-sans-body">
+          Agora você já pode acessar as 120 receitas e começar a explorar sabores de diferentes partes do mundo.
+        </p>
+
+        {/* Bloco de Download Principal (Prioridade Máxima Mobile - Altura >= 52px) */}
+        <div className="max-w-md mx-auto">
+          {downloadState === 'error' ? (
+            /* Estado de Erro Amigável */
+            <div className="p-4 sm:p-5 rounded-2xl bg-wine-50/70 border border-wine-200 text-left transition-all animate-fadeIn">
+              <div className="flex items-start gap-3 mb-3">
+                <AlertCircle className="w-5 h-5 text-wine-700 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-xs sm:text-sm font-semibold text-wine-900">
+                    {errorMessage || 'Não conseguimos iniciar o download.'}
+                  </p>
+                  <p className="text-[11px] sm:text-xs text-charcoal-600 mt-0.5">
+                    Se o problema continuar,{' '}
+                    <a
+                      href={SUPPORT_URL}
+                      onClick={() => trackAnalyticsEvent('support_click', { location: 'hero_error_alert' })}
+                      className="text-wine-700 font-semibold underline hover:text-wine-900"
+                    >
+                      fale com nosso suporte.
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => startDownload(false)}
+                id="btn-retry-download"
+                className="w-full min-h-[48px] sm:min-h-[52px] rounded-full bg-wine-700 hover:bg-wine-800 active:bg-wine-900 text-white font-bold text-xs sm:text-sm tracking-wide shadow-md flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+              >
+                <RefreshCw className="w-4 h-4" />
+                <span>TENTAR NOVAMENTE</span>
+              </button>
+            </div>
+          ) : (
+            /* Botão Principal de Download */
+            <div>
+              <button
+                type="button"
+                onClick={() => startDownload(false)}
+                disabled={downloadState === 'preparing'}
+                id="btn-main-download"
+                className={`w-full min-h-[52px] sm:min-h-[56px] px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-sm sm:text-base tracking-wide shadow-lg shadow-wine-900/15 flex items-center justify-center gap-2.5 transition-all ${
+                  downloadState === 'preparing'
+                    ? 'bg-wine-800 text-white/90 cursor-wait'
+                    : downloadState === 'success'
+                    ? 'bg-olive-700 text-white shadow-olive-900/20 active:scale-[0.98]'
+                    : 'bg-wine-700 hover:bg-wine-800 active:bg-wine-900 text-white hover:shadow-xl active:scale-[0.98]'
+                }`}
+              >
+                {downloadState === 'preparing' ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin text-white/90" />
+                    <span>Preparando seu download...</span>
+                  </>
+                ) : downloadState === 'success' ? (
+                  <>
+                    <Check className="w-5 h-5 text-white" />
+                    <span>Download iniciado!</span>
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-5 h-5 text-gold-300 stroke-[2.2]" />
+                    <span>BAIXAR MEU EBOOK</span>
+                  </>
+                )}
+              </button>
+
+              {/* Informações Auxiliares Abaixo do Botão */}
+              <div className="mt-2.5 text-center">
+                <div className="inline-flex items-center gap-1.5 text-xs text-charcoal-700 font-medium">
+                  <FileText className="w-3.5 h-3.5 text-wine-700" />
+                  <span>Arquivo digital em PDF</span>
+                </div>
+                <p className="text-[11px] sm:text-xs text-charcoal-500 mt-1 max-w-sm mx-auto leading-relaxed">
+                  Recomendamos salvar o arquivo no seu celular, computador ou nuvem para acessar sempre que quiser.
+                </p>
+              </div>
             </div>
           )}
         </div>
-
-        {/* BADGES POR STATUS */}
-        {status === 'approved' && (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-olive-100 text-olive-800 text-xs font-bold tracking-wider uppercase mb-4 border border-olive-400/30">
-            <span>PAGAMENTO CONFIRMADO</span>
-          </div>
-        )}
-
-        {status === 'pending' && (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-100 text-gold-700 text-xs font-bold tracking-wider uppercase mb-4 border border-gold-400/30">
-            <span>PAGAMENTO EM PROCESSAMENTO</span>
-          </div>
-        )}
-
-        {status === 'failed' && (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-wine-100 text-wine-800 text-xs font-bold tracking-wider uppercase mb-4 border border-wine-300/40">
-            <span>PAGAMENTO NÃO CONCLUÍDO</span>
-          </div>
-        )}
-
-        {status === 'unknown' && (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cream-200 text-charcoal-700 text-xs font-bold tracking-wider uppercase mb-4 border border-cream-300">
-            <span>PEDIDO REGISTRADO</span>
-          </div>
-        )}
-
-        {/* TÍTULOS E SUBHEADLINES DINÂMICAS */}
-        {status === 'approved' && (
-          <>
-            <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal-900 leading-tight mb-3">
-              Seu acesso está liberado.
-            </h1>
-            <p className="text-base sm:text-lg text-charcoal-600 font-sans-body max-w-xl mx-auto leading-relaxed mb-7">
-              Agora é só abrir o material e começar a descobrir novos sabores.
-            </p>
-
-            {/* CTA Principal Approved */}
-            <div className="flex flex-col items-center gap-3">
-              <a
-                href={PRODUCT_CONFIG.productAccessUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleAccessClick}
-                id="btn-access-recipes"
-                className="inline-flex items-center justify-center gap-2.5 bg-wine-700 hover:bg-wine-800 active:bg-wine-900 text-white font-bold text-base sm:text-lg px-8 py-4 min-h-[48px] rounded-full shadow-lg shadow-wine-900/20 hover:shadow-xl transition-all duration-200 group active:scale-[0.98]"
-              >
-                <span>ACESSAR MINHAS RECEITAS</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-
-              <p className="text-xs text-charcoal-500 font-medium pt-1">
-                Guarde esta página ou confira também o e-mail utilizado na compra.
-              </p>
-            </div>
-          </>
-        )}
-
-        {status === 'pending' && (
-          <>
-            <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal-900 leading-tight mb-3">
-              Recebemos seu pedido.
-            </h1>
-            <p className="text-base sm:text-lg text-charcoal-600 font-sans-body max-w-xl mx-auto leading-relaxed mb-7">
-              Seu pagamento ainda está sendo processado. Assim que houver a confirmação, o acesso será liberado conforme as regras da plataforma de pagamento.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <button
-                onClick={handleRefresh}
-                id="btn-verify-again"
-                disabled={isRefreshing}
-                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-cream-100 text-charcoal-800 border border-cream-300 font-bold text-sm sm:text-base px-6 py-3.5 min-h-[48px] rounded-full shadow-sm hover:shadow transition-all active:scale-[0.98]"
-              >
-                <RefreshCw className={`w-4 h-4 text-wine-700 ${isRefreshing ? 'animate-spin' : ''}`} />
-                <span>{isRefreshing ? 'Verificando...' : 'VERIFICAR NOVAMENTE'}</span>
-              </button>
-
-              <a
-                href={PRODUCT_CONFIG.supportUrl}
-                onClick={handleSupportClick}
-                className="text-xs sm:text-sm font-semibold text-wine-700 hover:underline px-4 py-2"
-              >
-                Dúvidas sobre o processamento? Fale com o suporte
-              </a>
-            </div>
-          </>
-        )}
-
-        {status === 'failed' && (
-          <>
-            <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal-900 leading-tight mb-3">
-              Não conseguimos confirmar o pagamento.
-            </h1>
-            <p className="text-base sm:text-lg text-charcoal-600 font-sans-body max-w-xl mx-auto leading-relaxed mb-7">
-              Seu pedido foi registrado, mas o pagamento não foi concluído.
-            </p>
-
-            <div className="flex flex-col items-center gap-4">
-              <a
-                href={PRODUCT_CONFIG.checkoutUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                id="btn-try-again-checkout"
-                className="inline-flex items-center justify-center gap-2.5 bg-wine-700 hover:bg-wine-800 text-white font-bold text-base sm:text-lg px-8 py-4 min-h-[48px] rounded-full shadow-md transition-all active:scale-[0.98]"
-              >
-                <span>TENTAR NOVAMENTE</span>
-                <ExternalLink className="w-4 h-4" />
-              </a>
-
-              <p className="text-xs sm:text-sm text-charcoal-500 font-medium">
-                Se você acredita que isso é um erro,{' '}
-                <a
-                  href={PRODUCT_CONFIG.supportUrl}
-                  onClick={handleSupportClick}
-                  className="text-wine-700 underline font-semibold hover:text-wine-800"
-                >
-                  entre em contato com o suporte
-                </a>.
-              </p>
-            </div>
-          </>
-        )}
-
-        {status === 'unknown' && (
-          <>
-            <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal-900 leading-tight mb-3">
-              Pedido recebido.
-            </h1>
-            <p className="text-base sm:text-lg text-charcoal-600 font-sans-body max-w-xl mx-auto leading-relaxed mb-7">
-              Estamos verificando as informações da sua compra.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <button
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-cream-100 text-charcoal-800 border border-cream-300 font-bold text-sm sm:text-base px-6 py-3.5 min-h-[48px] rounded-full shadow-sm hover:shadow transition-all"
-              >
-                <RefreshCw className={`w-4 h-4 text-wine-700 ${isRefreshing ? 'animate-spin' : ''}`} />
-                <span>{isRefreshing ? 'Atualizando...' : 'Atualizar página'}</span>
-              </button>
-
-              <a
-                href={PRODUCT_CONFIG.supportUrl}
-                onClick={handleSupportClick}
-                className="text-xs sm:text-sm font-semibold text-wine-700 hover:underline px-4 py-2"
-              >
-                Falar com o suporte
-              </a>
-            </div>
-          </>
-        )}
 
       </div>
     </section>
