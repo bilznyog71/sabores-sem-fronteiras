@@ -169,7 +169,7 @@ export const HERO_GALLERY_IMAGES = [
   {
     title: "Massa Fresca Italiana",
     category: "Itália",
-    url: "https://images.unsplash.com/photo-1621996346565-e3d5d6281691?auto=format&fit=crop&w=600&q=80",
+    url: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=600&q=80",
   },
   {
     title: "Torta de Frutas Vermelhas",
