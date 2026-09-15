@@ -22,7 +22,7 @@ export interface ProductConfig {
   copyrightYear: number;
 }
 
-export const PRODUCT_DOWNLOAD_URL = "/api/download";
+export const PRODUCT_DOWNLOAD_URL = "/MesaMundi-120-Receitas-do-Mundo.pdf";
 export const SUPPORT_URL = "mailto:suporte@mesamundi.online";
 
 export const PRODUCT_CONFIG: ProductConfig = {
