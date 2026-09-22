@@ -62,6 +62,8 @@ export const CheckoutRedirectProvider: React.FC<ProviderProps> = ({ children }) 
       const href = target.getAttribute('href') || '';
       const isCheckoutLink =
         href.includes('carrinho.app') ||
+        href.includes('greenn.com.br') ||
+        href.includes('payfast.greenn') ||
         href === PRODUCT_CONFIG.checkoutUrl ||
         target.hasAttribute('data-checkout-trigger');
 

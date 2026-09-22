@@ -33,6 +33,26 @@ export interface ProductConfig {
 export const PRODUCT_DOWNLOAD_URL = "/MesaMundi-120-Receitas-do-Mundo.pdf";
 export const SUPPORT_URL = "mailto:suporte@mesamundi.online";
 
+// URLs de Checkout por Domínio/Subdomínio
+export const CHECKOUT_URL_MAIN = "https://mesamundi.carrinho.app/one-checkout/ocmtb/38315230";
+export const CHECKOUT_URL_LOJA = "https://payfast.greenn.com.br/bbn3qwh";
+
+/**
+ * Detecta se a página está sendo acessada via subdomínio 'loja' ou parâmetro de teste
+ */
+export function isLojaSubdomain(): boolean {
+  if (typeof window === 'undefined') return false;
+  const hostname = window.location.hostname.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  return (
+    hostname.startsWith('loja.') ||
+    hostname === 'loja.mesamundi.online' ||
+    search.includes('subdomain=loja') ||
+    search.includes('origem=loja') ||
+    search.includes('checkout=loja')
+  );
+}
+
 export const PRODUCT_CONFIG: ProductConfig = {
   name: "MesaMundi",
   subtitle: "120 receitas para viajar pelo mundo sem sair da cozinha.",
@@ -49,7 +69,9 @@ export const PRODUCT_CONFIG: ProductConfig = {
   price: "R$ 297,90",
   previousPrice: "R$ 497,00",
   hasDiscount: true, // Alterne para false se não houver preço anterior promocional
-  checkoutUrl: "https://mesamundi.carrinho.app/one-checkout/ocmtb/38315230", // URL oficial do checkout
+  get checkoutUrl(): string {
+    return isLojaSubdomain() ? CHECKOUT_URL_LOJA : CHECKOUT_URL_MAIN;
+  },
   productAccessUrl: "https://mesamundi.online/acesso", // URL segura de acesso aos membros/conteúdo
   downloadUrl: PRODUCT_DOWNLOAD_URL,
   supportUrl: SUPPORT_URL, // URL ou link direto do suporte
