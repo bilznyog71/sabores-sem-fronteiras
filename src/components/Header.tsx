@@ -73,8 +73,6 @@ export const Header: React.FC = () => {
         <div className="flex items-center">
           <a
             href={PRODUCT_CONFIG.checkoutUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             onClick={handleCtaClick}
             className="inline-flex items-center justify-center bg-wine-700 hover:bg-wine-800 text-white text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all duration-200 group active:scale-[0.98]"
             id="header-cta-button"

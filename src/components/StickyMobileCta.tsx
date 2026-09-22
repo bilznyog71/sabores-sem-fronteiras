@@ -50,8 +50,6 @@ export const StickyMobileCta: React.FC = () => {
 
         <a
           href={PRODUCT_CONFIG.checkoutUrl}
-          target="_blank"
-          rel="noopener noreferrer"
           onClick={handleClick}
           id="mobile-sticky-cta-btn"
           className="flex-shrink-0 inline-flex items-center justify-center gap-2 bg-wine-700 hover:bg-wine-800 text-white font-bold text-xs sm:text-sm px-4 py-3 min-h-[48px] rounded-full shadow-md active:scale-95 transition-all"

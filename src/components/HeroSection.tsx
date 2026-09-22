@@ -53,8 +53,6 @@ export const HeroSection: React.FC = () => {
             <div className="w-full sm:w-auto flex flex-col items-start gap-3">
               <a
                 href={PRODUCT_CONFIG.checkoutUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 onClick={handleHeroCta}
                 id="hero-main-cta"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-wine-700 hover:bg-wine-800 active:bg-wine-900 text-white font-bold text-base sm:text-lg px-8 py-4 sm:py-4.5 rounded-full shadow-lg shadow-wine-900/20 hover:shadow-xl hover:shadow-wine-900/25 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group"

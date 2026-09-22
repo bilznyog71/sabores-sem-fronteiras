@@ -40,8 +40,6 @@ export const FinalCtaSection: React.FC = () => {
         <div>
           <a
             href={PRODUCT_CONFIG.checkoutUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             onClick={handleFinalCta}
             id="final-cta-button"
             className="inline-flex items-center justify-center gap-3 bg-wine-600 hover:bg-wine-500 active:bg-wine-700 text-white font-bold text-lg sm:text-xl px-9 py-4 sm:py-5 rounded-full shadow-2xl shadow-wine-950/60 transform hover:-translate-y-1 transition-all duration-200 group"

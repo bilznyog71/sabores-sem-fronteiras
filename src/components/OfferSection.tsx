@@ -139,8 +139,6 @@ export const OfferSection: React.FC = () => {
             <div className="w-full max-w-md flex flex-col items-stretch gap-3">
               <a
                 href={PRODUCT_CONFIG.checkoutUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 onClick={handleOfferCta}
                 id="offer-cta-button"
                 className="w-full inline-flex items-center justify-center gap-3 bg-gold-400 hover:bg-gold-300 active:bg-gold-500 text-charcoal-900 font-bold text-lg sm:text-xl py-4 sm:py-5 px-8 rounded-full shadow-2xl hover:shadow-gold-400/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group text-center"

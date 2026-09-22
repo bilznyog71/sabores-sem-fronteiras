@@ -46,8 +46,6 @@ export const EmotionalBenefitSection: React.FC = () => {
           <div>
             <a
               href={PRODUCT_CONFIG.checkoutUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               onClick={handleCta}
               id="emotional-cta-button"
               className="inline-flex items-center justify-center gap-3 bg-wine-600 hover:bg-wine-500 text-white font-bold text-base sm:text-lg px-8 py-4 rounded-full shadow-xl shadow-wine-950/40 hover:shadow-2xl transition-all duration-200 group active:scale-[0.98]"
