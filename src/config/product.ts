@@ -20,6 +20,14 @@ export interface ProductConfig {
   downloadUrl: string;
   supportEmail: string;
   copyrightYear: number;
+  legal: {
+    phone: string;
+    cnpj: string;
+    street: string;
+    number: string;
+    city: string;
+    state: string;
+  };
 }
 
 export const PRODUCT_DOWNLOAD_URL = "/MesaMundi-120-Receitas-do-Mundo.pdf";
@@ -41,13 +49,21 @@ export const PRODUCT_CONFIG: ProductConfig = {
   price: "R$ 297,90",
   previousPrice: "R$ 497,00",
   hasDiscount: true, // Alterne para false se não houver preço anterior promocional
-  checkoutUrl: "https://pay.disruptybr.app/c/Zqa?of=fxr", // URL oficial do checkout Disrupty
+  checkoutUrl: "https://mesamundi.carrinho.app/one-checkout/ocmtb/38315230", // URL oficial do checkout
   productAccessUrl: "https://mesamundi.online/acesso", // URL segura de acesso aos membros/conteúdo
   downloadUrl: PRODUCT_DOWNLOAD_URL,
   supportUrl: SUPPORT_URL, // URL ou link direto do suporte
   offerDisclaimer: "Acesso digital imediato • Consulte as condições da oferta",
   supportEmail: "suporte@mesamundi.online",
   copyrightYear: new Date().getFullYear(),
+  legal: {
+    phone: "15 99149-6679",
+    cnpj: "38.202.901/0001-39",
+    street: "RUA DANIEL DE CAMARGO TABORDO",
+    number: "590",
+    city: "PORTO FELIZ",
+    state: "SP",
+  },
 };
 
 /**

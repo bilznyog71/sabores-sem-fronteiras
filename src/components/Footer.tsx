@@ -46,6 +46,53 @@ export const Footer: React.FC = () => {
           </nav>
         </div>
 
+        {/* Informações Legais Estruturadas */}
+        <div className="py-7 border-b border-charcoal-800/80 text-xs text-charcoal-400">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center sm:text-left">
+            <div>
+              <p className="text-[11px] font-semibold text-cream-200 uppercase tracking-wider mb-1">
+                Identificação Legal
+              </p>
+              <p className="text-charcoal-300">CNPJ: {PRODUCT_CONFIG.legal.cnpj}</p>
+              <p className="text-charcoal-400 text-[11px] mt-0.5">{PRODUCT_CONFIG.name} • Conteúdo Digital</p>
+            </div>
+            <div>
+              <p className="text-[11px] font-semibold text-cream-200 uppercase tracking-wider mb-1">
+                Endereço
+              </p>
+              <p className="text-charcoal-300">
+                {PRODUCT_CONFIG.legal.street}, {PRODUCT_CONFIG.legal.number}
+              </p>
+              <p className="text-charcoal-400 text-[11px] mt-0.5">
+                {PRODUCT_CONFIG.legal.city} - {PRODUCT_CONFIG.legal.state}
+              </p>
+            </div>
+            <div className="sm:col-span-2 md:col-span-1">
+              <p className="text-[11px] font-semibold text-cream-200 uppercase tracking-wider mb-1">
+                Contato & Atendimento
+              </p>
+              <p className="text-charcoal-300">
+                Telefone:{' '}
+                <a
+                  href={`tel:+55${PRODUCT_CONFIG.legal.phone.replace(/\D/g, '')}`}
+                  className="text-gold-400 hover:text-gold-300 font-medium transition-colors"
+                >
+                  {PRODUCT_CONFIG.legal.phone}
+                </a>
+              </p>
+              <p className="text-charcoal-400 text-[11px] mt-0.5">
+                E-mail:{' '}
+                <a
+                  href={`mailto:${PRODUCT_CONFIG.supportEmail}`}
+                  className="text-cream-200 hover:text-white transition-colors"
+                >
+                  {PRODUCT_CONFIG.supportEmail}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Rodapé com Copyright Automático e Isenção Clara */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-charcoal-500 text-center sm:text-left">
           <p>
@@ -95,10 +142,25 @@ export const Footer: React.FC = () => {
                   <p>
                     Dúvidas sobre o recebimento do arquivo digital ou precisa de assistência com o seu acesso?
                   </p>
-                  <p className="font-medium text-charcoal-800">
-                    E-mail oficial de atendimento: <br />
-                    <span className="text-wine-700 font-mono text-sm">{PRODUCT_CONFIG.supportEmail}</span>
-                  </p>
+                  <div className="space-y-2 text-charcoal-800">
+                    <p className="font-medium">
+                      E-mail oficial de atendimento: <br />
+                      <a href={`mailto:${PRODUCT_CONFIG.supportEmail}`} className="text-wine-700 font-mono text-sm underline">
+                        {PRODUCT_CONFIG.supportEmail}
+                      </a>
+                    </p>
+                    <p className="font-medium">
+                      Telefone / WhatsApp: <br />
+                      <a
+                        href={`https://wa.me/55${PRODUCT_CONFIG.legal.phone.replace(/\D/g, '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-wine-700 font-mono text-sm underline"
+                      >
+                        {PRODUCT_CONFIG.legal.phone}
+                      </a>
+                    </p>
+                  </div>
                   <p className="text-xs text-charcoal-500">
                     Nosso suporte responde em dias úteis com orientações diretas para acesso e leitura.
                   </p>

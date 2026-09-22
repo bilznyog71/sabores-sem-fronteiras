@@ -42,6 +42,33 @@ export const ThankYouFooter: React.FC = () => {
           </nav>
         </div>
 
+        {/* Informações Legais */}
+        <div className="py-6 border-b border-charcoal-800/80 text-[11px] text-charcoal-400 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center sm:text-left">
+          <div>
+            <span className="font-semibold text-cream-200 block mb-0.5">Identificação Legal</span>
+            <p>CNPJ: {PRODUCT_CONFIG.legal.cnpj}</p>
+            <p className="text-charcoal-500">{PRODUCT_CONFIG.name} • Conteúdo Digital</p>
+          </div>
+          <div>
+            <span className="font-semibold text-cream-200 block mb-0.5">Endereço</span>
+            <p>{PRODUCT_CONFIG.legal.street}, {PRODUCT_CONFIG.legal.number}</p>
+            <p className="text-charcoal-500">{PRODUCT_CONFIG.legal.city} - {PRODUCT_CONFIG.legal.state}</p>
+          </div>
+          <div>
+            <span className="font-semibold text-cream-200 block mb-0.5">Contato</span>
+            <p>
+              Telefone:{' '}
+              <a
+                href={`tel:+55${PRODUCT_CONFIG.legal.phone.replace(/\D/g, '')}`}
+                className="text-gold-400 hover:text-gold-300 transition-colors"
+              >
+                {PRODUCT_CONFIG.legal.phone}
+              </a>
+            </p>
+            <p className="text-charcoal-500">E-mail: {PRODUCT_CONFIG.supportEmail}</p>
+          </div>
+        </div>
+
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-charcoal-500 text-center sm:text-left">
           <p>© {currentYear} {PRODUCT_CONFIG.name}. Todos os direitos reservados.</p>
           <p>Ambiente seguro e criptografado para entrega digital.</p>
@@ -70,9 +97,24 @@ export const ThankYouFooter: React.FC = () => {
                 </p>
               )}
               {activeModal === 'suporte' && (
-                <div>
-                  <p className="mb-2">E-mail oficial de suporte:</p>
-                  <p className="font-mono text-wine-700 font-semibold">{PRODUCT_CONFIG.supportEmail}</p>
+                <div className="space-y-2">
+                  <div>
+                    <p className="font-medium text-charcoal-800 mb-0.5">E-mail oficial de suporte:</p>
+                    <a href={`mailto:${PRODUCT_CONFIG.supportEmail}`} className="font-mono text-wine-700 font-semibold underline">
+                      {PRODUCT_CONFIG.supportEmail}
+                    </a>
+                  </div>
+                  <div>
+                    <p className="font-medium text-charcoal-800 mb-0.5">Telefone / WhatsApp:</p>
+                    <a
+                      href={`https://wa.me/55${PRODUCT_CONFIG.legal.phone.replace(/\D/g, '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-wine-700 font-semibold underline"
+                    >
+                      {PRODUCT_CONFIG.legal.phone}
+                    </a>
+                  </div>
                 </div>
               )}
             </div>
